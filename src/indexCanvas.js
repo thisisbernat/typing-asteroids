@@ -3,6 +3,9 @@ let prevChar = "";
 let firstChar = true;
 let counter = 0;
 
+let canvas = document.getElementById('myCanvas');
+let ctx = canvas.getContext('2d');
+
 //Function cleanArray normalizes the strings in the input array (all lowercase, no accents)
 function cleanArray(wordsArray) {
     const cleanedArray = wordsArray.map(word => word.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
@@ -15,7 +18,7 @@ function buildHTML(wordsArray) {
     let app = document.querySelector("#app");
     let htmlCode = "";
     [...wordsArray].forEach(function (word, index) {
-        htmlCode += `<h1 id="word${index}"><span id="first-part">${word}</span><span id="second-part"></span></h1>`;
+        htmlCode += `<h4 id="word${index}"><span id="first-part">${word}</span><span id="second-part"></span></h4>`;
     });
     app.innerHTML = htmlCode;
 };
@@ -46,7 +49,7 @@ function logKeys(event) {
             //console.log(event.key);
             firstChar = false;
             firstPart = document.querySelector(`#word${selectedIndex} #first-part`);
-            firstPart.classList.add("dark");
+            firstPart.classList.add("red");
         } else {
             console.log('Continua intentant-ho');
         };
@@ -82,6 +85,12 @@ function logKeys(event) {
     };
 };
 
+//Prepare array and initialize HTML
 let wordsArray = cleanArray(dirtyArray);
 buildHTML(wordsArray);
+///////////////////////////////////
+
+
+
+
 document.addEventListener("keydown", logKeys);
