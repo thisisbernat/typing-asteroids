@@ -1,10 +1,52 @@
-const dirtyArray = ['BARCÊLONÀ', 'gírona', 'tarraGONA', 'lLeídA', 'Urtx', 'Nas', 'Er'];
+const pixelFont = new FontFace('pixelFont', 'url(src/04B_03.ttf)');
+
+const dirtyArray = ['javascript', 'html', 'css', 'node.js', `Firefox`, 'React', 'ironhack'];
 let prevChar = "";
 let firstChar = true;
 let counter = 0;
 
 let canvas = document.getElementById('myCanvas');
 let ctx = canvas.getContext('2d');
+
+CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius) {
+    if (width < 2 * radius) radius = width / 2;
+    if (height < 2 * radius) radius = height / 2;
+    this.beginPath();
+    this.moveTo(x + radius, y);
+    this.arcTo(x + width, y, x + width, y + height, radius);
+    this.arcTo(x + width, y + height, x, y + height, radius);
+    this.arcTo(x, y + height, x, y, radius);
+    this.arcTo(x, y, x + width, y, radius);
+    this.closePath();
+    return this;
+  };
+
+pixelFont.load().then(function(font){
+    document.fonts.add(font);
+    let text = 'ironhack';
+    ctx.font = '14px pixelFont';
+    let textLength = ctx.measureText(text).width;
+    let blockPadding = 5;
+    let blockLength = textLength + 2*blockPadding;
+    let blockX = 100;
+    let blockY = 123;
+    let offsetX = blockPadding;
+    let offsetY = 14;
+    
+    ctx.roundRect(blockX, blockY, blockLength, 21, 5);
+    ctx.fillStyle = 'rgba(45, 62, 80, 1)';
+    ctx.fill();
+
+    ctx.fillStyle = 'white';
+    ctx.fillText(text, blockX+offsetX, blockY+offsetY);
+});	
+
+
+//ctx.clearRect(blockX, blockY, ctx.measureText(text).width + 11, 15);
+
+
+
+
 
 //Function cleanArray normalizes the strings in the input array (all lowercase, no accents)
 function cleanArray(wordsArray) {
@@ -49,7 +91,7 @@ function logKeys(event) {
             //console.log(event.key);
             firstChar = false;
             firstPart = document.querySelector(`#word${selectedIndex} #first-part`);
-            firstPart.classList.add("red");
+            firstPart.classList.add("orange");
         } else {
             console.log('Continua intentant-ho');
         };

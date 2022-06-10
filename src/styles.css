@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@font-face {
+  font-family: pixelFont;
+  src:url("04B_03.ttf");
+}
 
 body {
     font-family: 'VT323', monospace;
@@ -13,7 +17,11 @@ body > div {
 }
 
 h1 {
+  font-family: pixelFont;
+  color: #CCC4D3;
   font-size: 4rem;
+  margin-top: 5px;
+  margin-bottom: 17px;
 }
 
 h4 {
@@ -21,8 +29,8 @@ h4 {
   line-height: 1px;
 }
 
-.red {
-  color: firebrick;
+.orange {
+  color: #ff9c00;
 }
 
 .dark {
