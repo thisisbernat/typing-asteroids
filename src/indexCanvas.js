@@ -5,8 +5,13 @@ let prevChar = "";
 let firstChar = true;
 let counter = 0;
 
+const bckgndPNG = new Image();
+bckgndPNG.src = "./img/bkg_stars.png";
+
 let canvas = document.getElementById('myCanvas');
 let ctx = canvas.getContext('2d');
+
+ctx.drawImage(bckgndPNG, 100, 100, 100, 100);
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius) {
     if (width < 2 * radius) radius = width / 2;
