@@ -5,13 +5,69 @@ let prevChar = "";
 let firstChar = true;
 let counter = 0;
 
-const bckgndPNG = new Image();
-bckgndPNG.src = "./img/bkg_stars.png";
+var createdImage = drawImage();
 
+createdImage.onload = function(){
 let canvas = document.getElementById('myCanvas');
 let ctx = canvas.getContext('2d');
+ctx.drawImage(createdImage, 0 ,0);
+    pixelFont.load().then(function(font){
+        document.fonts.add(font);
+        let text = 'ironhack';
+        ctx.font = '14px pixelFont';
+        let textLength = ctx.measureText(text).width;
+        let blockPadding = 5;
+        let blockLength = textLength + 2*blockPadding;
+        let blockX = 90;
+        let blockY = 110;
+        let offsetX = blockPadding;
+        let offsetY = 14;
 
-ctx.drawImage(bckgndPNG, 100, 100, 100, 100);
+        //BLOCK
+        ctx.roundRect(blockX-50, blockY-50, blockLength, 21, 5);
+        ctx.fillStyle = 'rgba(45, 62, 80, 1)';
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.fillText(text, blockX+offsetX-50, blockY+offsetY-50);
+        
+        //BLOCK
+        ctx.roundRect(blockX, blockY, blockLength, 21, 5);
+        ctx.fillStyle = 'rgba(45, 62, 80, 1)';
+        ctx.fill();
+        ctx.fillStyle = '#ff9c00';
+        ctx.fillText(text.slice(0,1), blockX+offsetX, blockY+offsetY);
+        ctx.fillStyle = '#a09aa5';
+        ctx.fillText(text.slice(1), blockX+offsetX+ctx.measureText(text.slice(0,1)).width, blockY+offsetY);
+
+        //BLOCK
+        ctx.roundRect(blockX+50, blockY+50, blockLength, 21, 5);
+        ctx.fillStyle = 'rgba(45, 62, 80, 1)';
+        ctx.fill();
+        ctx.fillStyle = '#ff9c00';
+        ctx.fillText(text.slice(0,3), blockX+offsetX+50, blockY+offsetY+50);
+        ctx.fillStyle = '#a09aa5';
+        ctx.fillText(text.slice(3), blockX+offsetX+ctx.measureText(text.slice(0,3)).width+50, blockY+offsetY+50);
+
+        //BLOCK
+        ctx.roundRect(blockX+100, blockY+100, blockLength, 21, 5);
+        ctx.fillStyle = 'rgba(45, 62, 80, 1)';
+        ctx.fill();
+        ctx.fillStyle = '#ff9c00';
+        ctx.fillText(text.slice(0,6), blockX+offsetX+100, blockY+offsetY+100);
+        ctx.fillStyle = '#a09aa5';
+        ctx.fillText(text.slice(6), blockX+offsetX+ctx.measureText(text.slice(0,6)).width+100, blockY+offsetY+100);
+
+        //BLOCK
+        ctx.roundRect(blockX+150, blockY+150, blockLength, 21, 5);
+        ctx.fillStyle = 'rgba(45, 62, 80, 1)';
+        ctx.fill();
+        ctx.fillStyle = '#ff9c00';
+        ctx.fillText(text.slice(0,8), blockX+offsetX+150, blockY+offsetY+150);
+        ctx.fillStyle = '#a09aa5';
+        ctx.fillText(text.slice(8), blockX+offsetX+ctx.measureText(text.slice(0,8)).width+150, blockY+offsetY+150);
+        //de fet no cal escriure en blanc, perquè hem arribat al final => text.slice(8) = text;
+    });	
+};
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius) {
     if (width < 2 * radius) radius = width / 2;
@@ -24,32 +80,19 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, ra
     this.arcTo(x, y, x + width, y, radius);
     this.closePath();
     return this;
-  };
+};
 
-pixelFont.load().then(function(font){
-    document.fonts.add(font);
-    let text = 'ironhack';
-    ctx.font = '14px pixelFont';
-    let textLength = ctx.measureText(text).width;
-    let blockPadding = 5;
-    let blockLength = textLength + 2*blockPadding;
-    let blockX = 100;
-    let blockY = 123;
-    let offsetX = blockPadding;
-    let offsetY = 14;
-    
-    ctx.roundRect(blockX, blockY, blockLength, 21, 5);
-    ctx.fillStyle = 'rgba(45, 62, 80, 1)';
-    ctx.fill();
-
-    ctx.fillStyle = 'white';
-    ctx.fillText(text, blockX+offsetX, blockY+offsetY);
-});	
+function logKeysCanvas() {
+    return true;
+};
 
 
-//ctx.clearRect(blockX, blockY, ctx.measureText(text).width + 11, 15);
-
-
+function drawImage(){
+    var background = new Image();
+    background.src = "./img/bkg_stars.png";
+   
+   return background;
+ }
 
 
 
@@ -141,3 +184,4 @@ buildHTML(wordsArray);
 
 
 document.addEventListener("keydown", logKeys);
+document.addEventListener("keydown", logKeysCanvas);
